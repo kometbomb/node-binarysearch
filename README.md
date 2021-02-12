@@ -1,8 +1,18 @@
 
-[![Build Status](https://secure.travis-ci.org/soldair/node-binarysearch.png)](http://travis-ci.org/soldair/node-binarysearch)
-
 binarysearch
 ============
+
+## Note about TS
+
+This is a Typescript conversion of Ryan Day's binarysearch package. No functionality has been changed outside of replacing the default export.
+
+Usage is still as simple as:
+
+```ts
+import { bs } from "@kometbomb/binarysearch";
+
+bs([1,4,7,9,22,100,1000],7) === 2
+```
 
 pure js binary search for sorted javascript arrays||array like objects. returns any || last || first || closest matched key for value, or slice between 2 values where values need not exist.
 

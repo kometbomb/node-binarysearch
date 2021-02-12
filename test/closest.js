@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var bs = require('../index.js');
+var bs = require('../build/index.js');
 
 test("can get closest",function(t){
   var key = bs.closest([1,2,4,5,6],3);

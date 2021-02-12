@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var bs = require('../index.js');
+var bs = require('../build/index.js').bs;
 
 test("can find index",function(t){
   var key = bs([1,2,3,4,5,6,7,8],6,function(v,find){
@@ -7,7 +7,7 @@ test("can find index",function(t){
   });
 
   t.equals(key,5,'should have found key 5 for value 6');
-  
+
   key = bs([1,2,3,4,5,6,7,8],0);
 
   t.equals(key,-1,'should have not found a key for missing value');

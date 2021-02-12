@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var bs = require('../index.js');
+var bs = require('../build/index.js');
 
 
 test("can get last",function(t){

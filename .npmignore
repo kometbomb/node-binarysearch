@@ -1,0 +1,9 @@
+.npmignore
+node_modules
+tsconfig.json
+test
+build/examples
+.github
+*.tgz
+index.ts
+.nyc_output

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": false,
+      "target": "es2018",
+      "lib": ["es2018"],
+      "esModuleInterop": true,
+      "outDir": "build",
+      "types": ["node"],
+      "moduleResolution": "node",
+      "strict": true,
+      "skipLibCheck": true,
+      "declaration": true
+  },
+  "include": [
+      "*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**/*",
+    "./test/**"
+  ]
+}

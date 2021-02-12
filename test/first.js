@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var bs = require('../index.js');
+var bs = require('../build/index.js');
 
 test("can get first",function(t){
   var key = bs.first([1,2,3,3,3,4],3)
