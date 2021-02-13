@@ -4,7 +4,7 @@ interface Options {
   unique?: boolean;
 }
 
-type Comparitor<T, V = any> = (value: T, find: V, x?: any) => number;
+type Comparitor<T, V = T> = (value: T, find: V, x?: any) => number;
 
 export const bs = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => {
   if (!arr) return -1;
@@ -84,7 +84,7 @@ export const insert = <T>(arr: T[], search: T, opts?: Options, comparitor?: Comp
 }
 
 // this method returns the start and end indicies of a range. [start,end]
-export const range = <T>(arr: T[], from: number, to: number, comparitor?: Comparitor<T>) => {
+export const range = <T, V>(arr: T[], from: V, to: V, comparitor?: Comparitor<T, V>) => {
   if (!comparitor) comparitor = _defaultComparitor();
 
   var fromi = closest(arr, from, comparitor);
@@ -109,7 +109,7 @@ export const range = <T>(arr: T[], from: number, to: number, comparitor?: Compar
 }
 
 // this method returns the values of a range;
-export const rangeValue = <T>(arr: T[], from: number, to: number, comparitor?: Comparitor<T>) => {
+export const rangeValue = <T, V>(arr: T[], from: V, to: V, comparitor?: Comparitor<T, V>) => {
   var rangeArray = range(arr, from, to, comparitor);
   return arr.slice(rangeArray[0], rangeArray[1] + 1);
 }
@@ -161,7 +161,7 @@ export const _defaultComparitor = () => {
 module.exports._binarySearch = bsInner;
 module.exports._binarySearchClosest = bsclosest;
 
-function bsInner<T>(arr: T[], search: any, comparitor: Comparitor<T>) {
+function bsInner<T, V>(arr: T[], search: V, comparitor: Comparitor<T, V>) {
 
   var max = arr.length - 1, min = 0, middle, cmp;
   // continue searching while key may exist
@@ -182,7 +182,7 @@ function bsInner<T>(arr: T[], search: any, comparitor: Comparitor<T>) {
   return -1;
 }
 
-function bsclosest<T>(arr: T[], search: any, comparitor: Comparitor<T>, invert: boolean, closest: boolean) {
+function bsclosest<T, V>(arr: T[], search: V, comparitor: Comparitor<T, V>, invert: boolean, closest: boolean) {
   var mids = {}
     , min = 0, max = arr.length - 1, middle, cmp
     , sanity = arr.length;
