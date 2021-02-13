@@ -1,10 +1,10 @@
-interface Options {
+export interface Options {
   end?: boolean;
   exists?: boolean;
   unique?: boolean;
 }
 
-type Comparitor<T, V = T> = (value: T, find: V, x?: any) => number;
+export type Comparitor<T, V = T> = (value: T, find: V, x?: any) => number;
 
 export const bs = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => {
   if (!arr) return -1;
@@ -24,7 +24,9 @@ export const last = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) =
   return closest(arr, search, { exists: true, end: true }, comparitor);
 }
 
-export const closest = <T, V>(arr: T[], search: V, opts: Options | Comparitor<T, V>, comparitor?: Comparitor<T, V>) => {
+export function closest <T, V>(arr: T[], search: V, comparitor: Comparitor<T, V>): number;
+export function closest <T, V>(arr: T[], search: V, opts: Options, comparitor?: Comparitor<T, V>): number;
+export function closest <T, V>(arr: T[], search: V, opts: Options | Comparitor<T, V>, comparitor?: Comparitor<T, V>): number {
 
   if (typeof opts === 'function') {
     comparitor = opts;
@@ -46,7 +48,9 @@ export const closest = <T, V>(arr: T[], search: V, opts: Options | Comparitor<T,
 }
 
 // inserts element into the correct sorted spot into the array
-export const insert = <T>(arr: T[], search: T, opts?: Options, comparitor?: Comparitor<T, T>) => {
+export function insert <T>(arr: T[], search: T, comparitor?: Comparitor<T, T>): number;
+export function insert <T>(arr: T[], search: T, opts?: Options, comparitor?: Comparitor<T, T>): number;
+export function insert <T>(arr: T[], search: T, opts?: Options | Comparitor<T, T>, comparitor?: Comparitor<T, T>): number {
 
   if (typeof opts === 'function') {
     comparitor = opts;
