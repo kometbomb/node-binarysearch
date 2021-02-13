@@ -1,17 +1,18 @@
 
-binarysearch
+@kometbomb/binarysearch
 ============
 
 ## Note about TS
 
-This is a Typescript conversion of Ryan Day's binarysearch package. No functionality has been changed outside of replacing the default export.
+This is a Typescript conversion of Ryan Day's @kometbomb/binarysearch package. No functionality has been changed outside of replacing the default export. The main addition are the type definitions.
 
 Usage is still as simple as:
 
 ```ts
-import { bs } from "@kometbomb/binarysearch";
+import { bs, closest } from "@kometbomb/binarysearch";
 
 bs([1,4,7,9,22,100,1000],7) === 2
+closest([1,2,4,5,6],3) === 1
 ```
 
 pure js binary search for sorted javascript arrays||array like objects. returns any || last || first || closest matched key for value, or slice between 2 values where values need not exist.
@@ -22,8 +23,8 @@ example
 =======
 
 ```js
-
-var bs = require('binarysearch');
+// HOX: The default export has been removed so .bs has to be used
+var bs = require('@kometbomb/binarysearch').bs;
 
 bs([1,4,7,9,22,100,1000],7) === 2
 //true
@@ -48,6 +49,7 @@ bs([5,6,7,8,9],9,function(value,find){
 find first key that matches
 
 ```js
+var bs = require('@kometbomb/binarysearch');
 bs.first([0,1,2,3,3,3,4],3) === 3
 
 ```

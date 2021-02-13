@@ -28,6 +28,7 @@
       "node_modules"
     ]
   },
+  "keywords": ["typescript", "javascript", "search", "binary search"],
   "license": "MIT",
   "maintainers": [
     {
