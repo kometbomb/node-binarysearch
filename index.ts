@@ -6,6 +6,13 @@ export interface Options {
 
 export type Comparitor<T, V = T> = (value: T, find: V, x?: any) => number;
 
+/**
+ * Search for the value in the array and return the index
+ * @param arr
+ * @param search
+ * @param comparitor
+ * @returns Index of the found key or -1 if not found
+ */
 export const bs = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => {
   if (!arr) return -1;
   // as long as it has a length i will try and itterate over it.
@@ -16,14 +23,39 @@ export const bs = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => 
   return bsInner(arr, search, comparitor);
 }
 
+/**
+ * find first key that matches
+ * @param arr
+ * @param search
+ * @param comparitor
+ * @returns Index of the first matching key or -1 if not found
+ */
 export const first = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => {
   return closest(arr, search, { exists: true }, comparitor);
 }
 
+/**
+ * find last key that matches
+ * @param arr
+ * @param search
+ * @param comparitor
+ * @returns Index of the found key or -1 if not found
+ */
 export const last = <T, V>(arr: T[], search: V, comparitor?: Comparitor<T, V>) => {
   return closest(arr, search, { exists: true, end: true }, comparitor);
 }
 
+/**
+ * find closest key to where or key of searched value in the array
+ * - if the key is in the array the key will point to
+ *   - the first key that has that value by default
+ *   - the last key that has that value if {end:true} option is specified
+ * @param arr
+ * @param search Value to be searched for
+ * @param opts Options
+ * @param comparitor
+ * @returns index of the closest element or -1 if array is empty
+ */
 export function closest <T, V>(arr: T[], search: V, comparitor: Comparitor<T, V>): number;
 export function closest <T, V>(arr: T[], search: V, opts: Options, comparitor?: Comparitor<T, V>): number;
 export function closest <T, V>(arr: T[], search: V, opts: Options | Comparitor<T, V>, comparitor?: Comparitor<T, V>): number {
@@ -47,7 +79,14 @@ export function closest <T, V>(arr: T[], search: V, opts: Options | Comparitor<T
   return closest;
 }
 
-// inserts element into the correct sorted spot into the array
+/**
+ * inserts element into the correct sorted spot into the array
+ *
+ * @param arr
+ * @param search
+ * @param comparitor
+ * @returns The index where the element was inserted at
+ */
 export function insert <T>(arr: T[], search: T, comparitor?: Comparitor<T, T>): number;
 export function insert <T>(arr: T[], search: T, opts?: Options, comparitor?: Comparitor<T, T>): number;
 export function insert <T>(arr: T[], search: T, opts?: Options | Comparitor<T, T>, comparitor?: Comparitor<T, T>): number {
@@ -87,7 +126,16 @@ export function insert <T>(arr: T[], search: T, opts?: Options | Comparitor<T, T
   return closestIndex;
 }
 
-// this method returns the start and end indicies of a range. [start,end]
+/**
+ * query for a range between from and to.
+ *
+ * @param arr
+ * @param from First index
+ * @param to Last index (inclusive)
+ * @param comparitor
+ * @returns The array of indices between from and to
+ */
+
 export const range = <T, V>(arr: T[], from: V, to: V, comparitor?: Comparitor<T, V>) => {
   if (!comparitor) comparitor = _defaultComparitor();
 
@@ -112,27 +160,36 @@ export const range = <T, V>(arr: T[], from: V, to: V, comparitor?: Comparitor<T,
   return [fromi, toi];
 }
 
-// this method returns the values of a range;
+/**
+ * query for a range of values.
+ *
+ * @param arr
+ * @param from First index
+ * @param to Last index (inclusive)
+ * @param comparitor
+ * @returns The array of values between from and to
+ */
 export const rangeValue = <T, V>(arr: T[], from: V, to: V, comparitor?: Comparitor<T, V>) => {
   var rangeArray = range(arr, from, to, comparitor);
   return arr.slice(rangeArray[0], rangeArray[1] + 1);
 }
 
-//
-export const indexObject = (o: { [key: string]: any; }, extractor: (value: any) => number) => {
+/**
+ * create an object index
+ * @param obj object to be indexed
+ * @param extractor
+ * @returns key-value pairs to the object
+ */
+export const indexObject = (obj: { [key: string]: any; }, extractor: (value: any) => number) => {
   var index: Array<{ k: string; v: number; }> = [];
 
-  Object.keys(o).forEach(function (k) {
-    index.push({ k: k, v: extractor(o[k]) });
+  Object.keys(obj).forEach(function (k) {
+    index.push({ k: k, v: extractor(obj[k]) });
   });
 
   return index.sort(function (o1: { k: string; v: number; }, o2: { k: string; v: number; }) {
     return o1.v - o2.v;
   });
-}
-
-export const cmp = (v1: number, v2: number) => {
-  return v1 - v2;
 }
 
 export const _defaultComparitor = () => {
@@ -161,9 +218,6 @@ export const _defaultComparitor = () => {
     return v > search ? 1 : v < search ? -1 : 0
   };
 };
-
-module.exports._binarySearch = bsInner;
-module.exports._binarySearchClosest = bsclosest;
 
 function bsInner<T, V>(arr: T[], search: V, comparitor: Comparitor<T, V>) {
 
